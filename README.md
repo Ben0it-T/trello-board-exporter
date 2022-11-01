@@ -43,5 +43,5 @@ Simply run
 ```
 python3 trello-export-board.py
 ```
-The select au board and enjoy !
+Then select a board and enjoy !
 
