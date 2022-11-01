@@ -1,0 +1,20 @@
+# General
+.DS_Store
+._*
+*.sublime-project
+*.sublime-workspace
+*.json
+*.xlsx
+*.docx
+
+# Parameters
+*.ini
+!config-sample.ini
+
+# Templates
+!default-template.docx
+!example-01.docx
+!example-02.docx
+
+# Exports
+/exports/
