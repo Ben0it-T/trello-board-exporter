@@ -38,7 +38,7 @@ Copy the `config-sample.ini` to `config.ini`
 - add your api key and token
 - customize dates, proxies, labels and template document
 
-### Create your card DOCX template.
+### Create your card template.
 See templates in `templates/`
 
 ## Usage
