@@ -28,8 +28,9 @@ This script,
 - `[Template]`: docx template
 
 ### Get Trello api key and token
-Get your api key : https://trello.com/app-key
-Generate a (read only) token : https://trello.com/1/authorize?expiration=30days&scope=read&response_type=token&name=PersonalToken&key={YourAPIKey}
+- Get your api key : https://trello.com/app-key
+- Generate a (read only) token : https://trello.com/1/authorize?expiration=30days&scope=read&response_type=token&name=PersonalToken&key={YourAPIKey}
+
 To revoke a token : https://trello.com/my/account
 
 ### Create `config.ini`
