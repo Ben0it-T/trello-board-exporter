@@ -20,13 +20,6 @@ This script,
 
 ## Configure
 
-`config.ini` is a basic configuration file containing:
-- `[Dates]`: time zone and date format
-- `[TrelloApi]`: api key, token, url
-- `[Proxy]`: proxy configuration
-- `[Labels]`: custom titles
-- `[Template]`: docx template
-
 ### Get Trello api key and token
 - Get your api key : https://trello.com/app-key
 - Generate a (read only) token : https://trello.com/1/authorize?expiration=30days&scope=read&response_type=token&name=PersonalToken&key={YourAPIKey}
@@ -34,11 +27,20 @@ This script,
 To revoke a token : https://trello.com/my/account
 
 ### Create `config.ini`
+
+`config.ini` is a basic configuration file containing:
+- `[Dates]`: time zone and date format
+- `[TrelloApi]`: api key, token, url
+- `[Proxy]`: proxy configuration
+- `[Labels]`: custom titles
+- `[Template]`: docx template
+
 Copy the `config-sample.ini` to `config.ini`
 - add your api key and token
 - customize dates, proxies, labels and template document
 
 ### Create your card template.
+
 See templates in `templates/`
 
 ## Usage
