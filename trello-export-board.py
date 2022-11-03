@@ -508,7 +508,7 @@ for i in range(len(cards)):
                 url = card['attachments'][i]['url']
                 print(f"  Downloading '{attachmentFileName}'")
                 try:
-                    response = requests.request("GET",url,headers=attachmentsHeaders)
+                    response = requests.request("GET",url,proxies=proxies,headers=attachmentsHeaders)
                 except:
                     print("  Oops, an error occurred.")
                     print(f"  Cannot download '{attachmentFileName}'")
