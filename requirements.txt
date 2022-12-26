@@ -1,0 +1,4 @@
+docxtpl
+python-dateutil
+requests
+XlsxWriter

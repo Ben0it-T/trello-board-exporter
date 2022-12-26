@@ -18,6 +18,9 @@ This script,
 - requests (https://pypi.org/project/requests/)
 - XlsxWriter (https://pypi.org/project/XlsxWriter/)
 
+### Install requirements
+pip install -r requirements.txt
+
 ## Configure
 
 ### Get Trello api key and token
