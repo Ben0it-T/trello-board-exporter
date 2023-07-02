@@ -7,7 +7,7 @@ For my personnal use, I wrote this python script to be able to easily extract bo
 
 This script,
 - exports Board to XLSX document
-- exports all cards on the Board to DOCX documents
+- exports all cards on the Board to DOCX or PDF documents
 - exports all attachments
 
 ## Requirements
@@ -17,6 +17,8 @@ This script,
 - python-dateutil (https://pypi.org/project/python-dateutil/)
 - requests (https://pypi.org/project/requests/)
 - XlsxWriter (https://pypi.org/project/XlsxWriter/)
+- xhtml2pdf (https://xhtml2pdf.readthedocs.io/en/latest/)
+- markdown (https://python-markdown.github.io/index.html)
 
 ### Install requirements
 pip install -r requirements.txt
@@ -36,7 +38,7 @@ To revoke a token : https://trello.com/my/account
 - `[TrelloApi]`: api key, token, url
 - `[Proxy]`: proxy configuration
 - `[Labels]`: custom titles
-- `[Template]`: docx template
+- `[Template]`: docx template (export as docx) / html template (export as pdf) 
 
 Copy the `config-sample.ini` to `config.ini`
 - add your api key and token
