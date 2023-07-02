@@ -1,0 +1,121 @@
+<html>
+<head>
+<style>
+    @page {
+        size: a4 portrait;
+        margin: 2cm;
+
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 30pt; height: 20pt;
+        }
+        
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 792pt; height: 20pt;
+        }
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 2px;
+        text-align: left;
+        border: 0px solid black;
+    }
+
+    
+
+
+</style>
+<head>
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">{{ title }}</div>
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">page <pdf:pagenumber>
+        of <pdf:pagecount>
+    </div>
+
+    <table>
+        <tr>
+            <td style="background:#3869AD;color:white" colspan="2" ><h1>{{ title }}</h1><br></td>
+        </tr>
+        <tr>
+            <td style="text-align:right;background:#2D5389;color:white" colspan="2" >foo bar</td>
+        </tr>
+        <tr>
+            <td style="background:#2D5389;background:#EFEFEF;" colspan="2" >In list {{ list }}</td>
+        </tr>
+        <tr>
+            <td style="background:#2D5389;background:#EFEFEF;" colspan="2" >Labels : {{ labels }}</td>
+        </tr>
+        <tr>
+            <td style="background:#2D5389;background:#EFEFEF;" >Start date : {{ startDate }}</td>
+            <td style="background:#2D5389;background:#EFEFEF;" >Due date : {{ dueDate }}</td>
+        </tr>
+        <tr>
+            <td style="background:#2D5389;background:#EFEFEF;" colspan="2" >Last activity : {{ lastActivityDate }}</td>
+        </tr>
+
+    </table>
+    
+    <h1>Description</h1>
+    {{ description }}
+
+
+    {% if checklists|length > 0 %}<h1>Checklists</h1>
+    {% for checklist in checklists %}
+        <table>
+            <tr>
+                <td >{{ checklist[0] }}</td>
+                <td style="width:100px;text-align:right;">{{ checklist[3] }}</td>
+            </tr>
+        </table>
+        {% if checklist[2]|length > 0 %}
+            <table>
+            {% for item in checklist[2] %}
+                <tr>
+                    <td style="width:50px;text-align:right;">{% if item[2] == "complete"%}<span style="color:green;font-style: italic;">V</span>{% else %}<span style="color:red;font-style: italic;">X</span>{% endif %}</td>
+                    <td>{{ item[0] }}</td>
+                    <td style="width:100px;text-align:right;">{% if item[2] == "complete"%}[{{ item[3] }}]{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% endif %}
+        <br/>
+    {% endfor %}   
+    {% endif %}
+
+
+    {% if actions|length > 0 %}<h1>Activities</h1>
+    <table>
+        {%for action in actions %}
+            <tr>
+                <td style="width:120px;text-align:right;vertical-align: top;">
+                    {{ action[0] }}<br>
+                    {{ action[1] }}
+                </td>
+                <td>
+                    {{ action[2] }}
+                    <br>
+                </td>
+            </tr>
+        {% endfor %} 
+    </table>
+    {% endif %}
+
+
+    {% if attachments|length > 0 -%}<h1>Attachments</h1>
+    <ul>
+        {% for attachment in attachments %}
+        <li>{{ attachment[0] }} [{{ attachment[1] }}]</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+</body>
+</html>

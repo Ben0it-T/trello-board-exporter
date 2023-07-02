@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -10,6 +9,8 @@ Requirements:
 - python-dateutil (https://pypi.org/project/python-dateutil/)
 - requests (https://pypi.org/project/requests/)
 - XlsxWriter (https://pypi.org/project/XlsxWriter/)
+- xhtml2pdf (https://xhtml2pdf.readthedocs.io/en/latest/)
+- markdown (https://python-markdown.github.io/index.html)
 
 Configure:
 `config.ini`
@@ -24,7 +25,9 @@ Usage:
 """
 
 import configparser
+import jinja2
 import json
+import markdown
 import os
 import re
 import requests
@@ -40,6 +43,7 @@ from docxtpl import DocxTemplate
 from io import BytesIO
 from os.path import exists as path_exists
 from os import remove
+from xhtml2pdf import pisa
 
 
 def get_config_from_ini():
@@ -413,7 +417,6 @@ for i in range(len(cards)):
         sys.exit()
 
     print(f"[{i+1}/{len(cards)}] Card #{card['idShort']} '{card['name']}'")
-    document = DocxTemplate('./templates/' + config['Template']['template'])
 
     # Labels
     cardLabels = ''
@@ -537,18 +540,40 @@ for i in range(len(cards)):
     context["actions"] = actions
     context["attachments"] = attachments
 
-    # Render
-    document.render(context)
+
+    # Export
     outputFileName = sanitize_filename(card['name'])
-    outputFileName = outputFileName[:250] + ".docx"
+    if config['Template']['template'][-5:] == ".docx":
+        # Render
+        document = DocxTemplate('./templates/' + config['Template']['template'])
+        document.render(context)
+        outputFileName = outputFileName[:250] + ".docx"
 
-    # Save
-    if str(card['closed']) == 'False':
-        remove_if_exists(pathToCards + outputFileName)
-        document.save(pathToCards + outputFileName)
-    else:
-        remove_if_exists(pathToArchived + outputFileName)
-        document.save(pathToArchived + outputFileName)
+        # Save
+        if str(card['closed']) == 'False':
+            remove_if_exists(pathToCards + outputFileName)
+            document.save(pathToCards + outputFileName)
+        else:
+            remove_if_exists(pathToArchived + outputFileName)
+            document.save(pathToArchived + outputFileName)
 
+
+    if config['Template']['template'][-5:] == ".html":
+        # Render
+        template_loader = jinja2.FileSystemLoader(searchpath="./templates")
+        template_env = jinja2.Environment(loader=template_loader)
+        template_file = config['Template']['template']
+        template = template_env.get_template(template_file)
+        # markdown -> html
+        context["description"] = markdown.markdown(context["description"])
+        for i in range(len(context['actions'])):
+            context['actions'][i][2] = markdown.markdown(context['actions'][i][2])
+        output_text = template.render(context)
+
+        # Export to PDF
+        outputFileName = outputFileName[:250] + ".pdf"
+        result_file = open(f'{pathToCards}{outputFileName}', "w+b")
+        pisa_status = pisa.CreatePDF(output_text, dest=result_file)
+        result_file.close()
 
 print("Done.")

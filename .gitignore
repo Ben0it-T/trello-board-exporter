@@ -6,6 +6,8 @@
 *.json
 *.xlsx
 *.docx
+*.html
+*.pdf
 
 # Parameters
 *.ini
@@ -15,6 +17,7 @@
 !default-template.docx
 !example-01.docx
 !example-02.docx
+!default-template.html
 
 # Exports
 /exports/

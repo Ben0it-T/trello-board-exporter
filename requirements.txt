@@ -2,3 +2,5 @@ docxtpl
 python-dateutil
 requests
 XlsxWriter
+xhtml2pdf
+markdown
